@@ -12,7 +12,7 @@ val roots = listOf(
 // The elder package leaves the Japanese and the letter-language (Spanish, German…) assets out of the APK, so out of the manifest too.
 val elder = providers.gradleProperty("elderEdition").orNull == "true"
 val prepareRimeManifest by tasks.registering {
-    dependsOn("prepareChineseDictionaries", "prepareStrokeDictionary", "prepareCangjieDictionary", "prepareJapaneseDictionaries")
+    dependsOn("prepareChineseDictionaries", "prepareStrokeDictionary", "prepareCangjieDictionary") // 本地出包临时改动：跳过 prepareJapaneseDictionaries（louds zip 未发布，404），构建后还原。
     inputs.property("elder", elder)
     inputs.files(roots.map { it.second })
     outputs.dir(manifestOutput)

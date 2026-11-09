@@ -10,11 +10,8 @@ val onnxAarUrl = "https://repo1.maven.org/maven2/com/microsoft/onnxruntime/onnxr
 val onnxHeadersBase = "https://raw.githubusercontent.com/microsoft/onnxruntime/v${onnxVersion}/include/onnxruntime"
 
 // GitHub 加速镜像（按顺序尝试；不可用时请替换/删除）
-val ghMirrors = listOf(
-    "https://ghfast.top",
-    "https://gh-proxy.com",
-    "https://ghproxy.net",
-)
+// 本地出包临时改动：镜像全部挂起，本机可直连 GitHub，构建后还原。
+val ghMirrors = listOf<String>()
 
 // 纯 Java（HttpURLConnection）实现下载，跨平台且不依赖外部 curl/powershell：
 //  - 不依赖构建环境 PATH 中是否有 curl（F-Droid 构建服务器曾因找不到 curl 而构建失败）

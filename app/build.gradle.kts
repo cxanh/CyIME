@@ -94,9 +94,9 @@ android {
         testInstrumentationRunner = if (providers.gradleProperty("uiRenderingOnly").orNull == "true")
             "com.kingzcheung.xime.ui.UiRenderingTestRunner" else "androidx.test.runner.AndroidJUnitRunner"
 
-        // NDK 配置
+        // NDK 配置（本地出包临时裁剪：仅 arm64，构建后还原）
         ndk {
-            abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
+            abiFilters += listOf("arm64-v8a")
         }
 
         // 构建信息

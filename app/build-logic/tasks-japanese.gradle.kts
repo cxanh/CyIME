@@ -125,16 +125,19 @@ val prepareJapaneseDictionaries by tasks.registering {
         }
     }
 }
-tasks.matching { it.name == "preBuild" }.configureEach { dependsOn(prepareJapaneseDictionaries) }
+// 本地出包临时改动：louds zip 未发布（GitHub models 与魔搭均 404），跳过日语词典准备，日语回退罗马字直出；构建后还原。
+// tasks.matching { it.name == "preBuild" }.configureEach { dependsOn(prepareJapaneseDictionaries) }
 
 // libCyAzooKey.so, built by tools/azookey/build-android.sh (Swift has no x86 32-bit Android target;
 // there the translator finds no library and the romaji is shown unconverted).
 // A local copy is used first when its SHA-256 matches: <dir>/<abi>/libCyAzooKey.so or <dir>/libCyAzooKey-<hash8>-<abi>.so,
 // with <dir> from -Pcyime.azookeyLibDir, CYIME_AZOOKEY_LIB_DIR, or .codex-artifacts/azookey-1102/libs. Otherwise it is downloaded.
-val azooKeyLibraryHashes = mapOf(
+val azooKeyLibraryHashes = mapOf<String, String>( // 本地出包临时改动：pinned 库未发布（GitHub models 与魔搭均 404），跳过打包；日语罗马字保持不转换，构建后还原。
+/*
     "arm64-v8a" to "16907c1acf748d8b0b731106fcc65c07d70f72eb04d6a5430718b39604b53b50",
     "armeabi-v7a" to "01f5b76a443b22993de965aa3c4d0eeca67afb1b087451ca9b7bc585cd318f19",
     "x86_64" to "6589da4104294f49b430b1a65000b6e6a064841298bad6ef9303ebc3518287dc",
+*/
 )
 val azooKeyLibraryRoot = layout.buildDirectory.dir("generated/azookey-jniLibs")
 val prepareAzooKeyLibraries by tasks.registering {
